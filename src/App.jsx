@@ -14,6 +14,8 @@ import NewPassport from './pages/Newpassport'
 import PassportRenewal from './pages/PassportRenewal'
 import LostDamage from './pages/LostDamage'
 import OtherPassPortServices from './pages/OtherPassPortServices'
+import NewPatta from './pages/NewPatta'
+import PattaNameTransfer from './pages/PattaNameTransfer'
 
 export default function App() {
   return (
@@ -33,6 +35,8 @@ export default function App() {
       <Route path="/passport-renewal" element={<PassportRenewal />} />
       <Route path="/lost-damage" element={<LostDamage />} />
       <Route path="/other-passport-services" element={<OtherPassPortServices />} />
+      <Route path="/new-patta" element={<NewPatta />} />
+      <Route path="/patta-name-transfer" element={<PattaNameTransfer />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   )

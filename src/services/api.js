@@ -69,6 +69,24 @@ const MOCK_SERVICES = [
       { name: 'Proof of Date of Birth', format: 'PDF', size: 'Max 2MB' }
     ],
     
+  },
+  {
+    id: 'patta-document',
+    icon: '📄',
+    title: 'Patta Document',
+    subtitle : 'Apply for transfering the patta document',
+    time : '1-2 days',
+    fee : 'according to the services',
+    portalLink: 'https://tamilnilam.tn.gov.in/citizen/',
+    portalName: 'Tamil Nilam Portal',
+    docs: [
+      { name: 'Proof of Identity', format: 'JPG', size: 'Max 400KB' },
+      { name: 'Proof of Address', format: 'JPG', size: 'Max 400KB' },
+      { name: 'Parent Document of Land', format: 'JPG', size: 'Max 400KB' },
+      { name: 'Previous patta document', format: 'JPG', size: 'Max 400KB' },
+      { name: 'Sale Deed', format: 'JPG', size: 'Max 400KB' },
+      { name: 'Encumbrance Certificate (EC)', format: 'JPG', size: 'Max 2MB' },
+    ]
   }
 ]
 
@@ -224,6 +242,92 @@ const MOCK_SUB_SERVICES = {
         portalLink:'https://www.passportindia.gov.in/',
         portalName:'Passport Seva Kendra'
       }
+    },
+    'patta-document' : {
+      'new-patta' : {
+        title:'New Patta',
+        steps: [
+  {
+    title: 'Prepare Documents',
+    desc: 'Collect required documents like sale deed, property tax receipts, EC (Encumbrance Certificate), and ID proof. Note: Sale Deed is the legal document proving ownership of the property. EC (Encumbrance Certificate) shows that the property is free from legal or financial liabilities.'
+  },
+  {
+    title: 'Visit Taluk Office / VAO',
+    desc: 'Go to your local Taluk Office or Village Administrative Officer (VAO) office where the property is located.'
+  },
+  {
+    title: 'Submit Application',
+    desc: 'Fill out the Patta transfer/new Patta application form and submit it along with all required documents.'
+  },
+  {
+    title: 'Verification Process',
+    desc: 'Officials will verify your documents and may conduct a field inspection of the property.'
+  },
+  {
+    title: 'Approval by Tahsildar',
+    desc: 'After verification, the Tahsildar reviews and approves the Patta request.'
+  },
+  {
+    title: 'Receive Patta',
+    desc: 'Once approved, the Patta document is issued and can be collected from the office or accessed online if available.'
+  }
+],
+        docs:[
+          {name:'Proof of Identity',format:'JPG',size:'Max 400KB'},
+          {name:'Proof of Address',format:'JPG',size:'Max 400KB'},
+          {name:'Parent Document of Land',format:'JPG',size:'Max 400KB'},
+          {name:'Previous patta document',format:'JPG',size:'Max 400KB'},
+          {name:'Sale Deed',format:'JPG',size:'Max 400KB'},
+          { name: 'Encumbrance Certificate (EC)', format: 'JPG', size: 'Max 2MB' },
+
+        ],
+        portalLink:'https://tamilnilam.tn.gov.in/citizen/',
+        portalName:'Tamil Nilam Portal'
+      },
+      'patta-name-transfer':{
+        title:'Patta Name Transfer',
+       steps: [
+  {
+    title: 'Register / Login',
+    desc: 'Create an account or log in on the Tamil Nadu e-Services (Tamil Nilam) portal using your mobile number and OTP.'
+  },
+  {
+    title: 'Select Patta Transfer Service',
+    desc: 'Choose the "Patta Transfer" or "Patta Name Change" option from the land services section.'
+  },
+  {
+    title: 'Fill Application Details',
+    desc: 'Enter property details such as district, taluk, village, survey number, and details of buyer/seller.'
+  },
+  {
+    title: 'Upload Documents',
+    desc: 'Upload required documents like Sale Deed, Encumbrance Certificate (EC), identity proof, and supporting records.'
+  },
+  {
+    title: 'Submit & Pay Fee',
+    desc: 'Submit the application and pay the required processing fee online.'
+  },
+  {
+    title: 'Application Processing',
+    desc: 'Authorities will verify documents and may conduct field verification if needed.'
+  },
+  {
+    title: 'Track & Download Patta',
+    desc: 'Track your application status online and download the updated Patta once approved.'
+  }
+],
+        docs:[
+          {name:'Proof of Identity',format:'JPG',size:'Max 400KB'},
+          {name:'Proof of Address',format:'JPG',size:'Max 400KB'},
+          {name:'Parent Document of Land',format:'JPG',size:'Max 400KB'},
+          {name:'Previous patta document',format:'JPG',size:'Max 400KB'},
+          {name:'Sale Deed',format:'JPG',size:'Max 400KB'},
+          {name: 'Encumbrance Certificate (EC)', format: 'JPG', size: 'Max 2MB' },
+
+        ],
+        portalLink:'https://tamilnilam.tn.gov.in/citizen/',
+        portalName:'Tamil Nilam Portal'
+      } 
     }
 }
 

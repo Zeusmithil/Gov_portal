@@ -219,7 +219,7 @@ export default function Process() {
           <div className="process-layout">
             <div>
               <div className="section-title">Services</div>
-              {service !== 'aadhaar' && service !== 'driving' && service !== 'passport' && (
+              {service !== 'aadhaar' && service !== 'driving' && service !== 'passport' && service !== 'patta-document' && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "24px" }}>
                   <StepList steps={svcData.steps} />
                   {svcData.portalLink && (
@@ -402,6 +402,28 @@ export default function Process() {
                   )}
                 </div>
               )}
+              {service === 'patta-document' && (
+                <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "24px" }}>
+                  <h3 style={{ fontSize: "18px", marginBottom: "4px" }}>Patta Document Services</h3>
+                  <div
+                    className="card"
+                    style={{ padding: "20px", cursor: "pointer" }}
+                    onClick={() => navigate("/new-patta")}
+                  >
+                    <h3 style={{ marginBottom: "6px" }}>New Patta</h3>
+                    <p className="text-muted" style={{ fontSize: "14px" }}>Apply for a new patta document.</p>
+                  </div>
+                  <div
+                    className="card"
+                    style={{ padding: "20px", cursor: "pointer" }}
+                    onClick={() => navigate("/patta-name-transfer")}
+                  >
+                    <h3 style={{ marginBottom: "6px" }}>Patta Name Transfer</h3>
+                    <p className="text-muted" style={{ fontSize: "14px" }}>Transfer patta name to new owner.</p>
+                  </div>
+                </div>
+              )}
+          
 
 
             </div>
