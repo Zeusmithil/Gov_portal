@@ -68,12 +68,7 @@ const MOCK_SERVICES = [
       { name: 'Proof of Address', format: 'PDF/JPG', size: 'Max 2MB' },
       { name: 'Proof of Date of Birth', format: 'PDF', size: 'Max 2MB' }
     ],
-    steps: [
-      { title: 'Register', desc: 'Register yourself on the Passport Seva Online Portal.' },
-      { title: 'Apply', desc: 'Click on "Apply for Fresh Passport/Re-issue of Passport" link.' },
-      { title: 'Payment & Appointment', desc: 'Pay the fee and book your appointment.' },
-      { title: 'Visit PSK', desc: 'Visit the Passport Seva Kendra (PSK) with original documents.' }
-    ]
+    
   }
 ]
 
@@ -167,7 +162,69 @@ const MOCK_SUB_SERVICES = {
       portalLink: 'https://parivahan.gov.in/parivahan/',
       portalName: 'Parivahan Sewa Portal'
     }
-  }
+  },
+  'passport':{
+      'new-passport':{
+        title:'New Passport',
+        steps:[
+          {title:'Register',desc:'Register yourself on the Passport Seva Online Portal.'},
+          {title:'Apply',desc:'Click on "Apply for Fresh Passport/Re-issue of Passport" link.'},
+          {title:'Payment & Appointment',desc:'Pay the fee and book your appointment.'},
+          {title:'Visit PSK',desc:'Visit the Passport Seva Kendra (PSK) with original documents.'}
+        ],
+        docs:[
+          {name:'Proof of Address',format:'PDF/JPG',size:'Max 2MB'},
+          {name:'Proof of Date of Birth',format:'PDF',size:'Max 2MB'}
+        ],
+        portalLink:'https://www.passportindia.gov.in/',
+        portalName:'Passport Seva Kendra'
+      },
+      'passport-renewal':{
+        title:'Passport Renewal',
+        steps:[
+          {title:'Register',desc:'Register yourself on the Passport Seva Online Portal.'},
+          {title:'Apply',desc:'Click on "Apply for Fresh Passport/Re-issue of Passport" link.'},
+          {title:'Payment & Appointment',desc:'Pay the fee and book your appointment.'},
+          {title:'Visit PSK',desc:'Visit the Passport Seva Kendra (PSK) with original documents.'}
+        ],
+        docs:[
+          {name:'Proof of Address',format:'PDF/JPG',size:'Max 2MB'},
+          {name:'Proof of Date of Birth',format:'PDF',size:'Max 2MB'}
+        ],
+        portalLink:'https://www.passportindia.gov.in/',
+        portalName:'Passport Seva Kendra'
+      },
+      'lost-damage':{
+        title:'Lost/Stolen/Damaged Passport',
+        steps:[
+          {title:'Register',desc:'Register yourself on the Passport Seva Online Portal.'},
+          {title:'Apply',desc:'Click on "Apply for Fresh Passport/Re-issue of Passport" link.'},
+          {title:'Payment & Appointment',desc:'Pay the fee and book your appointment.'},
+          {title:'Visit PSK',desc:'Visit the Passport Seva Kendra (PSK) with original documents.'}
+        ],
+        docs:[
+          {name:'Proof of Address',format:'PDF/JPG',size:'Max 2MB'},
+          {name:'Proof of Date of Birth',format:'PDF',size:'Max 2MB'}
+        ],
+        portalLink:'https://www.passportindia.gov.in/',
+        portalName:'Passport Seva Kendra'
+      },
+      'other-services':{
+        title:'Other Services',
+        steps:[
+          {title:'Register',desc:'Register yourself on the Passport Seva Online Portal.'},
+          {title:'Apply',desc:'Click on "Apply for Fresh Passport/Re-issue of Passport" link.'},
+          {title:'Payment & Appointment',desc:'Pay the fee and book your appointment.'},
+          {title:'Visit PSK',desc:'Visit the Passport Seva Kendra (PSK) with original documents.'}
+        ],
+        docs:[
+          {name:'Proof of Address',format:'PDF/JPG',size:'Max 2MB'},
+          {name:'Proof of Date of Birth',format:'PDF',size:'Max 2MB'}
+        ],
+        portalLink:'https://www.passportindia.gov.in/',
+        portalName:'Passport Seva Kendra'
+      }
+    }
 }
 
 // ------------------------------------

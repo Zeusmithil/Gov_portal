@@ -219,7 +219,28 @@ export default function Process() {
           <div className="process-layout">
             <div>
               <div className="section-title">Services</div>
-              {service !== 'aadhaar' && service !== 'driving' && <StepList steps={svcData.steps} />}
+              {service !== 'aadhaar' && service !== 'driving' && service !== 'passport' && (
+                <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "24px" }}>
+                  <StepList steps={svcData.steps} />
+                  {svcData.portalLink && (
+                    <div style={{ marginTop: '8px', padding: '16px', backgroundColor: '#f8f9fa', borderRadius: '8px', border: '1px solid #e9ecef' }}>
+                      <h4 style={{ margin: '0 0 8px 0', fontSize: '15px', color: '#343a40' }}>Ready to apply?</h4>
+                      <p style={{ margin: '0 0 16px 0', fontSize: '14px', color: '#6c757d' }}>Visit the official portal to start your application process.</p>
+                      <a
+                        href={svcData.portalLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="button button-primary"
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}
+                      >
+                        Go to {svcData.portalName || 'Portal'}
+                        <span style={{ fontSize: '16px' }}>↗</span>
+                      </a>
+                    </div>
+                  )}
+                </div>
+
+)}
 
               {service === 'aadhaar' && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "24px" }}>
@@ -302,6 +323,65 @@ export default function Process() {
                   >
                     <h3 style={{ marginBottom: "6px" }}>Other Services</h3>
                     <p className="text-muted" style={{ fontSize: "14px" }}>Duplicate license, address change, and general applications.</p>
+                  </div>
+
+                  {svcData.portalLink && (
+                    <div style={{ marginTop: '24px', padding: '16px', backgroundColor: '#f8f9fa', borderRadius: '8px', border: '1px solid #e9ecef' }}>
+                      <h4 style={{ margin: '0 0 8px 0', fontSize: '15px', color: '#343a40' }}>Ready to apply?</h4>
+                      <p style={{ margin: '0 0 16px 0', fontSize: '14px', color: '#6c757d' }}>Visit the official portal to start your application process.</p>
+                      <a
+                        href={svcData.portalLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="button button-primary"
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}
+                      >
+                        Go to {svcData.portalName || 'Portal'}
+                        <span style={{ fontSize: '16px' }}>↗</span>
+                      </a>
+                    </div>
+                  )}
+                </div>
+              )}
+              {service === 'passport' && (
+                <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "24px" }}>
+                  <h3 style={{ fontSize: "18px", marginBottom: "4px" }}>Passport Services</h3>
+                  <p className="text-muted" style={{ fontSize: "14px" }}>Apply for a new passport or renew an existing one.</p>
+
+                  <div
+                    className="card"
+                    style={{ padding: "20px", cursor: "pointer" }}
+                    onClick={() => navigate("/new-passport")}
+                  >
+                    <h3 style={{ marginBottom: "6px" }}>New Passport</h3>
+                    <p className="text-muted" style={{ fontSize: "14px" }}>Apply for a fresh passport booklet.</p>
+                  </div>
+
+                  <div
+                    className="card"
+                    style={{ padding: "20px", cursor: "pointer" }}
+                    onClick={() => navigate("/passport-renewal")}
+                  >
+                    <h3 style={{ marginBottom: "6px" }}>Passport Renewal</h3>
+                    <p className="text-muted" style={{ fontSize: "14px" }}>Renew your expiring or expired passport.</p>
+                  </div>
+
+                  <div
+                    className="card"
+                    style={{ padding: "20px", cursor: "pointer" }}
+                    onClick={() => navigate("/lost-damage")}
+                  >
+                    <h3 style={{ marginBottom: "6px" }}>Lost/Damaged Passport</h3>
+                    <p className="text-muted" style={{ fontSize: "14px" }}>Apply for a replacement in case of loss or damage.</p>
+                  </div>
+
+                  <div
+                    className="card"
+                    style={{ padding: "20px", cursor: "pointer" }}
+                    onClick={() => navigate("/other-passport-services")}
+                  >
+                    <h3 style={{ marginBottom: "6px" }}>Other Services</h3>
+                    <p className="text-muted" style={{ fontSize: "14px" }}>Police Clearance Certificate (PCC) and other passport-related services.</p>
                   </div>
 
                   {svcData.portalLink && (

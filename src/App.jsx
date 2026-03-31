@@ -10,6 +10,10 @@ import OnlineTest from './pages/OnlineTest'
 import LearnersLicense from './pages/LearnersLicense'
 import DrivingSchool from './pages/DrivingSchool'
 import OtherServices from './pages/OtherServices'
+import NewPassport from './pages/Newpassport'
+import PassportRenewal from './pages/PassportRenewal'
+import LostDamage from './pages/LostDamage'
+import OtherPassPortServices from './pages/OtherPassPortServices'
 
 export default function App() {
   return (
@@ -25,6 +29,10 @@ export default function App() {
       <Route path="/learners-license" element={<LearnersLicense />} />
       <Route path="/driving-school" element={<DrivingSchool />} />
       <Route path="/other-services" element={<OtherServices />} />
+      <Route path="/new-passport" element={<NewPassport />} />
+      <Route path="/passport-renewal" element={<PassportRenewal />} />
+      <Route path="/lost-damage" element={<LostDamage />} />
+      <Route path="/other-passport-services" element={<OtherPassPortServices />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   )
