@@ -421,6 +421,23 @@ export default function Process() {
                     <h3 style={{ marginBottom: "6px" }}>Patta Name Transfer</h3>
                     <p className="text-muted" style={{ fontSize: "14px" }}>Transfer patta name to new owner.</p>
                   </div>
+
+                  {svcData.portalLink && (
+                    <div style={{ marginTop: '24px', padding: '16px', backgroundColor: '#f8f9fa', borderRadius: '8px', border: '1px solid #e9ecef' }}>
+                      <h4 style={{ margin: '0 0 8px 0', fontSize: '15px', color: '#343a40' }}>Ready to apply?</h4>
+                      <p style={{ margin: '0 0 16px 0', fontSize: '14px', color: '#6c757d' }}>Visit the official portal to start your application process.</p>
+                      <a
+                        href={svcData.portalLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="button button-primary"
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}
+                      >
+                        Go to {svcData.portalName || 'Portal'}
+                        <span style={{ fontSize: '16px' }}>↗</span>
+                      </a>
+                    </div>
+                  )}
                 </div>
               )}
           
@@ -449,6 +466,7 @@ export default function Process() {
             </div>
           </div>
         )}
+        
 
         {/* ===== TAB: VALIDATE DOCS ===== */}
         {activeTab === 'documents' && (

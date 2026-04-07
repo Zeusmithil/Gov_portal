@@ -60,9 +60,17 @@ export default function UpdateAadhaar() {
             ))}
           </div>
         )}
-      </div>
-      {data && data.portalLink && (
-          <div style={{ marginTop: '24px', padding: '16px', backgroundColor: '#f8f9fa', borderRadius: '8px', border: '1px solid #e9ecef' }}>
+
+        {data && data.portalLink && (
+          <div
+            style={{
+              marginTop: '24px',
+              padding: '16px',
+              backgroundColor: '#f8f9fa',
+              borderRadius: '8px',
+              border: '1px solid #e9ecef'
+            }}
+          >
             <h4 style={{ margin: '0 0 8px 0', fontSize: '15px', color: '#343a40' }}>Ready to apply?</h4>
             <p style={{ margin: '0 0 16px 0', fontSize: '14px', color: '#6c757d' }}>Visit the official portal to start your application process.</p>
             <a
@@ -77,6 +85,7 @@ export default function UpdateAadhaar() {
             </a>
           </div>
         )}
+      </div>
     </>
   )
 }

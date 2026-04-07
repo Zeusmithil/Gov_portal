@@ -1,0 +1,105 @@
+.gov-step-overlay {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: min(360px, calc(100vw - 32px));
+  max-height: 70vh;
+  overflow: auto;
+  z-index: 999999;
+  border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.gov-step-overlay.light {
+  background: rgba(255, 255, 255, 0.95);
+  color: #1d1d1d;
+  border: 1px solid rgba(33, 33, 33, 0.08);
+}
+
+.gov-step-overlay.dark {
+  background: rgba(18, 18, 18, 0.92);
+  color: #f7f7f7;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.gov-step-overlay header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.gov-step-overlay h2 {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.gov-step-overlay button.gov-step-close {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.08);
+  color: inherit;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.gov-step-overlay.light button.gov-step-close {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.gov-step-overlay.dark button.gov-step-close {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.gov-step-overlay .gov-step-description {
+  margin: 0 0 14px 0;
+  font-size: 13px;
+  line-height: 1.6;
+  opacity: 0.92;
+}
+
+.gov-step-overlay ol {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.gov-step-overlay li {
+  margin-bottom: 12px;
+}
+
+.gov-step-overlay li:last-child {
+  margin-bottom: 0;
+}
+
+.gov-step-overlay a.gov-step-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.gov-step-overlay.light a.gov-step-link {
+  color: #0b61ff;
+}
+
+.gov-step-overlay.dark a.gov-step-link {
+  color: #8ec6ff;
+}
+
+.gov-step-overlay p.gov-step-powered {
+  margin: 14px 0 0;
+  font-size: 12px;
+  opacity: 0.75;
+}

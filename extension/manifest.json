@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Gov Service Steps Overlay",
+  "description": "Shows step-by-step instructions as a floating overlay on supported government service sites.",
+  "version": "1.0.0",
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.uidai.gov.in/*",
+        "*://*.onlineservices.nsdl.com/*",
+        "*://*.utitsl.com/*",
+        "*://*.parivahan.gov.in/*",
+        "*://*.passportindia.gov.in/*"
+      ],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ]
+}
