@@ -1,16 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import StepList from '../components/StepList'
-import DocumentUpload from '../components/DocumentUpload'
-import DocumentList from '../components/DocumentList'
-import DocumentStatus from '../components/DocumentStatus'
-import { getService, apiValidate, apiUpload } from '../services/api'
+import { getService } from '../services/api'
 import { isAuthenticated } from '../utils/auth'
-
-
-const TABS = ['steps', 'documents', 'vault']
-const TAB_LABELS = { steps: 'Steps', documents: 'Validate Docs', vault: 'My Vault' }
 
 function Toast({ toasts }) {
   return (
@@ -24,29 +17,12 @@ function Toast({ toasts }) {
   )
 }
 
-function getInitialVault() {
-  try {
-    return JSON.parse(sessionStorage.getItem('vault') || '[]')
-  } catch {
-    return []
-  }
-}
-
 export default function Process() {
   const { service } = useParams()
   const navigate = useNavigate()
 
   const [svcData, setSvcData] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState('steps')
-
-  // Vault state
-  const [vault, setVault] = useState(getInitialVault())
-
-  // Validation state
-  const [validating, setValidating] = useState(false)
-  const [validResult, setValidResult] = useState(null)
-  const [validFileName, setValidFileName] = useState('')
 
   // Toasts
   const [toasts, setToasts] = useState([])
@@ -66,7 +42,6 @@ export default function Process() {
       }
       setSvcData(data)
       setLoading(false)
-      // Call logActivity below
     }
     
     loadService()
@@ -78,11 +53,6 @@ export default function Process() {
       logActivity('Opened ' + svcData.title, svcData.icon || '📋')
     }
   }, [svcData])
-
-  // Persist vault
-  useEffect(() => {
-    sessionStorage.setItem('vault', JSON.stringify(vault))
-  }, [vault])
 
   function showToast(msg, type = '') {
     const id = Date.now()
@@ -101,67 +71,6 @@ export default function Process() {
 
     const updated = [...prev, entry].slice(-10) // keep only last 10
     sessionStorage.setItem('activity', JSON.stringify(updated))
-  }
-
-  // --- Validation tab ---
-  async function handleValidationFile(file) {
-    setValidating(true)
-    setValidResult(null)
-    setValidFileName(file.name)
-    try {
-      await apiUpload(file)
-      const result = await apiValidate(file)
-      setValidResult(result)
-      logActivity('Validated: ' + file.name, '🔍')
-    } catch {
-      showToast('Validation failed. Please try again.', 'error')
-    } finally {
-      setValidating(false)
-    }
-  }
-
-  function handleAddToVaultFromValidation() {
-    if (!validResult || !validFileName) return
-    addToVault(validFileName, validFileName.split('.').pop().toUpperCase(), validResult.sizeKB + ' KB')
-    setActiveTab('vault')
-    showToast('Document added to vault!', 'success')
-  }
-
-  // --- Vault tab ---
-  async function handleVaultUpload(file) {
-    try {
-      await apiUpload(file)
-      const ext = file.name.split('.').pop().toUpperCase()
-      const size = (file.size / 1024).toFixed(1) + ' KB'
-      addToVault(file.name, ext, size)
-      showToast('Document uploaded!', 'success')
-      logActivity('Uploaded: ' + file.name, '📤')
-    } catch {
-      showToast('Upload failed. Please try again.', 'error')
-    }
-  }
-
-  function addToVault(name, ext, size) {
-    setVault((prev) => [
-      ...prev,
-      { id: Date.now(), name, ext, size, date: new Date().toLocaleDateString() },
-    ])
-  }
-
-  function removeFromVault(id) {
-    setVault((prev) => prev.filter((d) => d.id !== id))
-    showToast('Document removed.')
-  }
-
-  function validateFromVault(doc) {
-    setValidFileName(doc.name)
-    setValidResult({
-      sizeValid: parseFloat(doc.size) <= 2048,
-      formatValid: ['PDF', 'JPG', 'JPEG', 'PNG'].includes(doc.ext),
-      sizeKB: parseFloat(doc.size).toFixed(1),
-      format: doc.ext,
-    })
-    setActiveTab('documents')
   }
 
   if (loading) {
@@ -200,23 +109,7 @@ export default function Process() {
             <span className="badge">💰 {svcData.fee}</span>
           </div>
         </div>
-
-        {/* Tabs */}
-        <div className="tabs">
-          {TABS.map((tab) => (
-            <button
-              key={tab}
-              className={`tab-btn ${activeTab === tab ? 'active' : ''}`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {TAB_LABELS[tab]}
-            </button>
-          ))}
-        </div>
-
-        {/* ===== TAB: STEPS ===== */}
-        {activeTab === 'steps' && (
-          <div className="process-layout">
+        <div className="process-layout">
             <div>
               <div className="section-title">Services</div>
               {service !== 'aadhaar' && service !== 'driving' && service !== 'passport' && service !== 'patta-document' && (
@@ -445,7 +338,6 @@ export default function Process() {
 
             </div>
             <div>
-              <div className="section-title">Required documents</div>
               {svcData.docs && svcData.docs.map((doc, i) => (
                 <div key={i} className="doc-req">
                   <div className="doc-req-info">
@@ -455,67 +347,10 @@ export default function Process() {
                   <span className="doc-badge">{doc.format.split('/')[0]}</span>
                 </div>
               ))}
-              <div className="mt-4">
-                <button
-                  className="button button-primary"
-                  onClick={() => setActiveTab('vault')}
-                >
-                  Upload documents →
-                </button>
-              </div>
             </div>
           </div>
-        )}
         
 
-        {/* ===== TAB: VALIDATE DOCS ===== */}
-        {activeTab === 'documents' && (
-          <div style={{ maxWidth: '560px' }}>
-            <div className="section-title">Upload &amp; validate</div>
-            <div className="alert alert-info">
-              Upload a document to check if it meets the size and format requirements for this service.
-            </div>
-
-            {!validating ? (
-              <DocumentUpload onFile={handleValidationFile} />
-            ) : (
-              <div style={{ textAlign: 'center', padding: '40px 0' }}>
-                <span className="spinner spinner-dark" style={{ width: 24, height: 24 }} />
-                <p className="text-muted mt-3" style={{ fontSize: '14px' }}>Analysing document...</p>
-              </div>
-            )}
-
-            <DocumentStatus
-              validation={validResult}
-              fileName={validFileName}
-              onAddToVault={handleAddToVaultFromValidation}
-            />
-          </div>
-        )}
-
-        {/* ===== TAB: VAULT ===== */}
-        {activeTab === 'vault' && (
-          <div style={{ maxWidth: '660px' }}>
-            <div className="flex-between" style={{ marginBottom: '20px' }}>
-              <div className="section-title" style={{ marginBottom: 0 }}>Document vault</div>
-              <span className="text-muted text-sm">{vault.length} file{vault.length !== 1 ? 's' : ''} stored</span>
-            </div>
-
-            <div style={{ marginBottom: '20px' }}>
-              <DocumentUpload
-                onFile={handleVaultUpload}
-                label="Click or drag to upload a document"
-                hint="PDF, JPG, PNG — documents are stored for this session"
-              />
-            </div>
-
-            <DocumentList
-              docs={vault}
-              onRemove={removeFromVault}
-              onValidate={validateFromVault}
-            />
-          </div>
-        )}
       </div>
     </>
   )

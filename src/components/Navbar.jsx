@@ -16,7 +16,7 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="navbar-brand" onClick={() => navigate('/dashboard')}>
         <div className="navbar-logo">G/</div>
-        Gov Services Portal
+        Gov Services
       </div>
       <div className="navbar-right">
         {user && (
@@ -26,7 +26,7 @@ export default function Navbar() {
           </div>
         )}
         <button className="button button-secondary" onClick={handleLogout}>
-          Sign out
+          log out
         </button>
       </div>
     </nav>

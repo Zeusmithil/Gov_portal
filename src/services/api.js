@@ -7,6 +7,14 @@ const apiClient = axios.create({
   },
 });
 
+apiClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem('unavoidable_token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 const SERVICES_DATA = {
   aadhaar: {
     id: 'aadhaar',
@@ -378,51 +386,4 @@ export async function getSubService(serviceId, subServiceId) {
   return null;
 }
 
-// ------------------------------------
-// Strict Backend Document Calls
-// ------------------------------------
-export async function apiUpload(file) {
-  const formData = new FormData();
-  formData.append("file", file);
-  
-  try {
-    const response = await apiClient.post('/upload', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Upload failed", error);
-    throw new Error('Upload failed. Check if backend is running.');
-  }
-}
 
-export async function apiValidate(file) {
-  const formData = new FormData();
-  formData.append("file", file);
-
-  try {
-    const response = await apiClient.post('/validate', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Validation failed", error);
-    throw new Error('Validation failed');
-  }
-}
-
-export async function apiFormat(action) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      let verb = action
-      if (action === 'compress') verb = 'compressed'
-      if (action === 'convert') verb = 'converted'
-      if (action === 'resize') verb = 'resized'
-      resolve({ message: `Document successfully ${verb}` })
-    }, 1200)
-  })
-}
