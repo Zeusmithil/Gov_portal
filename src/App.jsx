@@ -4,18 +4,20 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import Process from './pages/Process'
-import UpdateAadhaar from './pages/UpdateAadhaar'
-import GetAadhaar from './pages/GetAadhaar'
-import OnlineTest from './pages/OnlineTest'
-import LearnersLicense from './pages/LearnersLicense'
-import DrivingSchool from './pages/DrivingSchool'
-import OtherServices from './pages/OtherServices'
-import NewPassport from './pages/Newpassport'
-import PassportRenewal from './pages/PassportRenewal'
-import LostDamage from './pages/LostDamage'
-import OtherPassPortServices from './pages/OtherPassPortServices'
-import NewPatta from './pages/NewPatta'
-import PattaNameTransfer from './pages/PattaNameTransfer'
+import UpdateAadhaar from './pages/aadhar/UpdateAadhaar'
+import GetAadhaar from './pages/aadhar/GetAadhaar'
+import OnlineTest from './pages/driving/OnlineTest'
+import LearnersLicense from './pages/driving/LearnersLicense'
+import DrivingSchool from './pages/driving/DrivingSchool'
+import OtherServices from './pages/driving/OtherServices'
+import NewPassport from './pages/passport/NewPassport'
+import PassportRenewal from './pages/passport/PassportRenewal'
+import LostDamage from './pages/passport/LostDamage'
+import OtherPassPortServices from './pages/passport/OtherPassPortServices'
+import NewPatta from './pages/patta/NewPatta'
+import PattaNameTransfer from './pages/patta/PattaNameTransfer'
+import Suggestions from './pages/Suggestions'
+import ResetPassword from './pages/ResetPassword'
 
 export default function App() {
   return (
@@ -37,6 +39,8 @@ export default function App() {
       <Route path="/other-passport-services" element={<OtherPassPortServices />} />
       <Route path="/new-patta" element={<NewPatta />} />
       <Route path="/patta-name-transfer" element={<PattaNameTransfer />} />
+      <Route path="/suggestions" element={<Suggestions />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   )

@@ -109,6 +109,7 @@ export default function Process() {
             <span className="badge">💰 {svcData.fee}</span>
           </div>
         </div>
+
         <div className="process-layout">
             <div>
               <div className="section-title">Services</div>
@@ -334,9 +335,9 @@ export default function Process() {
                 </div>
               )}
           
-
-
+            
             </div>
+            
             <div>
               {svcData.docs && svcData.docs.map((doc, i) => (
                 <div key={i} className="doc-req">
@@ -347,6 +348,14 @@ export default function Process() {
                   <span className="doc-badge">{doc.format.split('/')[0]}</span>
                 </div>
               ))}
+
+              <button
+                className="button button-secondary"
+                onClick={() => navigate('/suggestions')}
+                style={{ marginTop: '16px' }}
+              >
+                💡 Suggest an improvement
+              </button>
             </div>
           </div>
         

@@ -363,6 +363,27 @@ export async function apiRegister(name, email, password) {
   }
 }
 
+export async function apiRequestPasswordReset(email) {
+  try {
+    const response = await apiClient.post('/request-password-reset', { email });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.detail || 'Password reset request failed.');
+  }
+}
+
+export async function apiExecutePasswordReset(token, newPassword) {
+  try {
+    const response = await apiClient.post('/reset-password', {
+      token,
+      new_password: newPassword,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.detail || 'Unable to reset password.');
+  }
+}
+
 // ------------------------------------
 // Local Frontend Service Calls
 // ------------------------------------
@@ -376,14 +397,24 @@ export async function getService(serviceName) {
 
 export async function getSubService(serviceId, subServiceId) {
   const localSubservice = SUBSERVICES_DATA[serviceId]?.[subServiceId] || null;
-  if (localSubservice) {
-    return {
-      serviceId,
-      subServiceId,
-      ...localSubservice,
-    };
+  if (!localSubservice) return null;
+
+  let dynamicSteps = localSubservice.steps;
+  try {
+    const res = await apiClient.get(`/steps/${serviceId}/${subServiceId}`);
+    if (res.data.success && res.data.steps) {
+      dynamicSteps = res.data.steps;
+    }
+  } catch (error) {
+    console.warn("Could not fetch dynamic steps, falling back to static");
   }
-  return null;
+
+  return {
+    serviceId,
+    subServiceId,
+    ...localSubservice,
+    steps: dynamicSteps
+  };
 }
 
 

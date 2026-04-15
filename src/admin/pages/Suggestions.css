@@ -1,0 +1,74 @@
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.card-container .card {
+  transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-container .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover Content */
+.card-container .hover-content {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  color: #666;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.card-container .hover-content p {
+  margin: 4px 0;
+}
+
+.card-container .card:hover .hover-content {
+  opacity: 1;
+  max-height: 80px;
+  margin-top: 12px;
+}
+
+/* Expanded Content */
+.card-container .expanded-content {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.card-container .card.expanded .expanded-content {
+  opacity: 1;
+  max-height: 600px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(128, 128, 128, 0.15);
+}
+
+.card-container .expanded-content h4 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+  color: inherit;
+}
+
+.card-container .expanded-content ul {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-container .expanded-content li {
+  font-size: 0.95rem;
+  color: inherit;
+  opacity: 0.85;
+}

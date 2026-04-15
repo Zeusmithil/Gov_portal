@@ -85,6 +85,7 @@ export default function Login() {
             />
           </div>
 
+
           <button
             type="submit"
             className="button button-primary button-full"
@@ -98,6 +99,9 @@ export default function Login() {
       <div className="auth-switch">
         Don't have an account?{' '}
         <Link to="/register">Create one →</Link>
+      </div>
+      <div className="auth-switch" style={{ marginTop: '10px' }}>
+        <Link to="/reset-password">Forgot password?</Link>
       </div>
       <p className="auth-hint">Demo: prefilled credentials work instantly</p>
     </div>

@@ -3,4 +3,19 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  server: {
+    port: 5173,
+    middlewareMode: false,
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+        admin: 'admin.html',
+      },
+      output: {
+        dir: 'dist',
+      },
+    },
+  },
 })

@@ -13,4 +13,6 @@ db = client.unavoidable_db
 
 # Create references to the collections we'll need
 users_collection = db.get_collection("users")
-documents_collection = db.get_collection("documents")
+admins_collection = db.get_collection("admins")
+suggestions_collection = db.get_collection("suggestions")
+steps_collection = db.get_collection("steps")
