@@ -4,6 +4,7 @@ import AdminLogin from './pages/AdminLogin'
 import AdminDashboard from './pages/AdminDashboard'
 import AdminUsers from './pages/AdminUsers'
 import AdminSuggestions from './pages/AdminSuggestions'
+import AdminServices from './pages/AdminServices'
 import ProtectedRoute from './components/ProtectedRoute'
 
 export default function AdminApp() {
@@ -21,6 +22,10 @@ export default function AdminApp() {
       <Route 
         path="/suggestions" 
         element={<ProtectedRoute><AdminSuggestions /></ProtectedRoute>} 
+      />
+      <Route 
+        path="/services" 
+        element={<ProtectedRoute><AdminServices /></ProtectedRoute>} 
       />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>

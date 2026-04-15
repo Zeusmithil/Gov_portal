@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException, status, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
 from backend import model
-from backend.database import users_collection, admins_collection, suggestions_collection, steps_collection
+from backend.database import users_collection, admins_collection, suggestions_collection, steps_collection, services_collection, subservices_collection
 from bson import ObjectId
 
 # Add for JWT and email
@@ -229,32 +229,56 @@ async def update_suggestion_status(suggestion_id: str, update: model.SuggestionU
 
     return {"success": True, "status": update.status}
 
-# 4. STEPS ROUTES
-@app.get("/api/steps/{service_id}/{subservice_id}")
-async def get_service_steps(service_id: str, subservice_id: str):
-    record = await steps_collection.find_one({
-        "service_id": service_id, 
-        "subservice_id": subservice_id
-    })
-    
-    if record and "steps" in record:
-        formatted = []
-        for s in record["steps"]:
-            formatted.append({"title": s.get("title", ""), "desc": s.get("desc", "")})
-        return {"success": True, "steps": formatted}
-        
-    return {"success": True, "steps": None}
+@app.get("/api/services")
+async def get_all_services():
+    cursor = services_collection.find()
+    services = await cursor.to_list(length=100)
+    for s in services:
+        s["_id"] = str(s["_id"])
+    return {"success": True, "services": services}
 
-@app.put("/api/admin/steps")
-async def update_service_steps(data: model.ServiceSteps):
-    steps_list = [{"title": s.title, "desc": s.desc} for s in data.steps]
-    
-    await steps_collection.update_one(
-        {"service_id": data.service_id, "subservice_id": data.subservice_id},
-        {"$set": {
-            "steps": steps_list,
-            "updated_at": datetime.utcnow()
-        }},
+@app.get("/api/services/{service_id}")
+async def get_service(service_id: str):
+    service = await services_collection.find_one({"id": service_id})
+    if not service:
+        raise HTTPException(status_code=404, detail="Service not found")
+    service["_id"] = str(service["_id"])
+    return {"success": True, "service": service}
+
+@app.get("/api/subservices/{service_id}")
+async def get_subservices(service_id: str):
+    cursor = subservices_collection.find({"service_id": service_id})
+    subservices = await cursor.to_list(length=100)
+    for s in subservices:
+        s["_id"] = str(s["_id"])
+    return {"success": True, "subservices": subservices}
+
+@app.get("/api/subservices/{service_id}/{subservice_id}")
+async def get_subservice(service_id: str, subservice_id: str):
+    subservice = await subservices_collection.find_one({
+        "service_id": service_id, "subservice_id": subservice_id
+    })
+    if not subservice:
+        raise HTTPException(status_code=404, detail="Subservice not found")
+    subservice["_id"] = str(subservice["_id"])
+    return {"success": True, "subservice": subservice}
+
+@app.put("/api/admin/services")
+async def update_service(data: model.ServiceModel, current_user=Depends(get_current_user)):
+    data_dict = data.dict()
+    await services_collection.update_one(
+        {"id": data.id},
+        {"$set": data_dict},
         upsert=True
     )
-    return {"success": True, "message": "Steps successfully saved!"}
+    return {"success": True, "message": "Service successfully updated"}
+
+@app.put("/api/admin/subservices")
+async def update_subservice(data: model.SubServiceModel, current_user=Depends(get_current_user)):
+    data_dict = data.dict()
+    await subservices_collection.update_one(
+        {"service_id": data.service_id, "subservice_id": data.subservice_id},
+        {"$set": data_dict},
+        upsert=True
+    )
+    return {"success": True, "message": "Subservice successfully updated"}

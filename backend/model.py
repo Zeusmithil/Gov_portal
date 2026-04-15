@@ -45,3 +45,29 @@ class ServiceSteps(BaseModel):
     service_id: str
     subservice_id: str
     steps: List[StepItem]
+
+class DocItem(BaseModel):
+    name: str
+    format: str
+    size: str
+
+class ServiceModel(BaseModel):
+    id: str
+    title: str
+    subtitle: str
+    icon: str
+    time: str
+    fee: str
+    portalName: str
+    portalLink: str
+    steps: List[StepItem]
+    docs: List[DocItem]
+
+class SubServiceModel(BaseModel):
+    service_id: str
+    subservice_id: str
+    title: str
+    portalName: str
+    portalLink: str
+    steps: List[StepItem]
+    docs: List[DocItem]

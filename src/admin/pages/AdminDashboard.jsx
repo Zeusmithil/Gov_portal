@@ -28,6 +28,11 @@ export default function AdminDashboard() {
           <h3>💡 User Suggestions</h3>
           <p>Review and respond to user feedback</p>
         </div>
+
+        <div className="card" style={{ padding: '20px', cursor: 'pointer' }} onClick={() => navigate('/services')}>
+          <h3>⚙️ Manage Services</h3>
+          <p>View, edit, and create main application services and steps</p>
+        </div>
       </div>
     </div>
   )
