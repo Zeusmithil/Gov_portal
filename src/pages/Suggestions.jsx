@@ -56,7 +56,7 @@ export default function Suggestions() {
 
         <div className="page-header">
           <h1>💡 Suggest an Improvement</h1>
-          <p>Help us make government processes easier. What would you like to see changed or added?</p>
+          <p>Help us make government processes easier. What would you like to see changed or added? </p>
         </div>
 
         <div className="card">

@@ -31,7 +31,7 @@ export default function ResetPassword() {
       setMessage(res.message || 'If this email exists, a password reset link has been sent.')
       setEmail('')
     } catch (err) {
-      setError(err.message || 'Unable to send reset email. Please try again.')
+      setError(err.response?.data?.detail || 'Unable to send reset email. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -52,19 +52,30 @@ export default function ResetPassword() {
       return
     }
 
-    if (newPassword.length < 8) {
-      setError('Password must be at least 8 characters long.')
+    // Stronger password validation
+    const hasUpperCase = /[A-Z]/.test(newPassword)
+    const hasLowerCase = /[a-z]/.test(newPassword)
+    const hasNumbers = /\d/.test(newPassword)
+    const hasNonalphas = /\W/.test(newPassword)
+    
+    if (newPassword.length < 8 || !(hasUpperCase && hasLowerCase && hasNumbers && hasNonalphas)) {
+      setError('Password must be at least 8 characters long and include uppercase, lowercase, numbers, and symbols.')
       return
     }
 
     setLoading(true)
     try {
       const res = await apiExecutePasswordReset(token, newPassword)
-      setMessage(res.message || 'Your password has been reset successfully.')
+      setMessage(res.message || 'Your password has been reset successfully. Redirecting to login...')
       setNewPassword('')
       setConfirmPassword('')
+      // Redirect to login after 3 seconds
+      setTimeout(() => {
+        navigate('/login')
+      }, 3000)
     } catch (err) {
-      setError(err.message || 'Unable to reset password. Please try again.')
+      const detail = err.response?.data?.detail || err.message
+      setError(detail || 'Unable to reset password. The link may be invalid or expired.')
     } finally {
       setLoading(false)
     }
@@ -87,8 +98,8 @@ export default function ResetPassword() {
         </div>
 
         <div className="card">
-          {message && <div className="alert alert-success">{message}</div>}
-          {error && <div className="alert alert-error">{error}</div>}
+          {message && <div className="alert alert-success" role="alert">{message}</div>}
+          {error && <div className="alert alert-error" role="alert">{error}</div>}
 
           <form onSubmit={isResetMode ? handleResetSubmit : handleRequestSubmit}>
             {isResetMode ? (

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { getAdminToken } from '../utils/adminAuth'
 
 export default function AdminUsers() {
   const navigate = useNavigate()
@@ -49,7 +50,7 @@ export default function AdminUsers() {
          subservice_id: subserviceId,
          steps: steps.filter(s => s.title.trim() !== '')
       }
-      const token = localStorage.getItem('unavoidable_token')
+      const token = getAdminToken()
       const res = await fetch('http://localhost:8000/api/admin/steps', {
         method: 'PUT',
         headers: { 
